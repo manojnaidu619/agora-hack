@@ -166,7 +166,7 @@ export const Controls = (props: {
     tracks[1].close();
     setStart(false);
     setInCall(false);
-    window.closeWindow();
+    window.close();
   };
 
   return (
