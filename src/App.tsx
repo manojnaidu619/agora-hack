@@ -171,11 +171,11 @@ export const Controls = (props: {
     <div className="controls">
       <button className={`eng-control-btn ${trackState.audio ? "eng-audio-on" : "eng-audio-off"}`}
         onClick={() => mute("audio")}>
-        {trackState.audio ? <img src="https://img.icons8.com/material-sharp/24/000000/microphone.png"/> : <img src="https://img.icons8.com/material/24/000000/no-microphone.png"/>}
+        {trackState.audio ? <img alt="external-images" src="https://img.icons8.com/material-sharp/24/000000/microphone.png"/> : <img alt="external-images" src="https://img.icons8.com/material/24/000000/no-microphone.png"/>}
       </button>
       <button className={`eng-control-btn ${trackState.video ? "eng-video-on" : "eng-video-off"}`}
         onClick={() => mute("video")}>
-        {trackState.video ? <img src="https://img.icons8.com/material-outlined/24/000000/video-call.png"/> : <img src="https://img.icons8.com/material-outlined/24/000000/no-video.png"/>}
+        {trackState.video ? <img alt="external-images" src="https://img.icons8.com/material-outlined/24/000000/video-call.png"/> : <img alt="external-images" src="https://img.icons8.com/material-outlined/24/000000/no-video.png"/>}
       </button>
       {<button className="eng-control-btn eng-controls-leave-btn" onClick={() => leaveChannel()}>
         <span style={{fontSize: '25px'}}>&times;</span>
@@ -188,23 +188,7 @@ const ChannelForm = (props: {
   setInCall: React.Dispatch<React.SetStateAction<boolean>>;
   setChannelName: React.Dispatch<React.SetStateAction<string>>;
 }) => {
-  const { setInCall, setChannelName } = props;
   return null;
-  return (
-    <form className="join">
-      {appId === '' && <p style={{color: 'red'}}>Please enter your Agora App ID in App.tsx and refresh the page</p>}
-      <input type="text"
-        placeholder="Enter Channel Name"
-        onChange={(e) => setChannelName(e.target.value)}
-      />
-      <button onClick={(e) => {
-        e.preventDefault();
-        setInCall(true);
-      }}>
-        Join
-      </button>
-    </form>
-  );
 };
 
 export default App;
