@@ -23,7 +23,6 @@ const App = () => {
   const [inCall, setInCall] = useState(true);
   return (
     <div>
-      <h1 className="heading">Video meet powered by <span style={{color: "#00cc99"}}>Binod</span></h1>
       {inCall ? (
         <VideoCall setInCall={setInCall} channelName={channelName} />
       ) : (
@@ -102,10 +101,10 @@ const VideoCall = (props: {
 
   return (
     <div className="App">
+      {start && tracks && <Videos users={users} tracks={tracks} />}
       {ready && tracks && (
         <Controls tracks={tracks} setStart={setStart} setInCall={setInCall} />
       )}
-      {start && tracks && <Videos users={users} tracks={tracks} />}
     </div>
   );
 };
@@ -121,12 +120,12 @@ const Videos = (props: {
       <div id="videos">
         {/* AgoraVideoPlayer component takes in the video track to render the stream,
             you can pass in other props that get passed to the rendered div */}
-        <AgoraVideoPlayer style={{height: '95%', width: '95%'}} className='vid' videoTrack={tracks[1]} />
+        <AgoraVideoPlayer style={{height: '100%', width: '100%'}} className='vid' videoTrack={tracks[1]} />
         {users.length > 0 &&
           users.map((user) => {
             if (user.videoTrack) {
               return (
-                <AgoraVideoPlayer style={{height: '95%', width: '95%'}} className='vid' videoTrack={user.videoTrack} key={user.uid} />
+                <AgoraVideoPlayer style={{height: '100%', width: '100%'}} className='vid' videoTrack={user.videoTrack} key={user.uid} />
               );
             } else return null;
           })}
@@ -170,15 +169,17 @@ export const Controls = (props: {
 
   return (
     <div className="controls">
-      <p className={trackState.audio ? "on" : ""}
+      <button className={`eng-control-btn ${trackState.audio ? "eng-audio-on" : "eng-audio-off"}`}
         onClick={() => mute("audio")}>
-        {trackState.audio ? "MuteAudio" : "UnmuteAudio"}
-      </p>
-      <p className={trackState.video ? "on" : ""}
+        {trackState.audio ? <img src="https://img.icons8.com/material-sharp/24/000000/microphone.png"/> : <img src="https://img.icons8.com/material/24/000000/no-microphone.png"/>}
+      </button>
+      <button className={`eng-control-btn ${trackState.video ? "eng-video-on" : "eng-video-off"}`}
         onClick={() => mute("video")}>
-        {trackState.video ? "MuteVideo" : "UnmuteVideo"}
-      </p>
-      {<p onClick={() => leaveChannel()}>Leave</p>}
+        {trackState.video ? <img src="https://img.icons8.com/material-outlined/24/000000/video-call.png"/> : <img src="https://img.icons8.com/material-outlined/24/000000/no-video.png"/>}
+      </button>
+      {<button className="eng-control-btn eng-controls-leave-btn" onClick={() => leaveChannel()}>
+        <span style={{fontSize: '25px'}}>&times;</span>
+      </button>}
     </div>
   );
 };
@@ -188,7 +189,7 @@ const ChannelForm = (props: {
   setChannelName: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const { setInCall, setChannelName } = props;
-
+  return null;
   return (
     <form className="join">
       {appId === '' && <p style={{color: 'red'}}>Please enter your Agora App ID in App.tsx and refresh the page</p>}
